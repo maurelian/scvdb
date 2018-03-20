@@ -1,0 +1,27 @@
+# Database metadata
+title: 'Ethereum Smart Contract Vulnerability Database'
+updated: '2018-03-16'
+more-info: 'https://consensys.github.io/smart-contract-best-practices/ESCVDB'
+
+vulnerabilities:
+  - id: 1
+    name: 'Example Vulnerability Entry'
+    classification: 'EVM' # I think the might be 'EVM' or 'Common logical error' or 'Front Running'?
+    description: > # `>` allows for a multiline entry
+      This is an example of the types of data that would be included about a given vulnerability.
+      The issue can is caused by...
+      The issue can result in...
+      The issue can be mitigated by...
+    tags: [underflow, arithmetic]
+    more-info: 
+      - `https://any_place_with_more_info.com`
+      - `https://consensys.github.io/smart-contract-best-practices/{something we wrote about it}`
+  - id: 2
+    name: ''
+    description: ''
+    more-info: 
+      - `https://..`
+      - `https://..`
+
+
+

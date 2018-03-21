@@ -5,23 +5,93 @@ more-info: 'https://consensys.github.io/smart-contract-best-practices/ESCVDB'
 
 vulnerabilities:
   - id: 1
-    name: 'Example Vulnerability Entry'
-    classification: 'EVM' # I think the might be 'EVM' or 'Common logical error' or 'Front Running'?
-    description: > # `>` allows for a multiline entry
-      This is an example of the types of data that would be included about a given vulnerability.
-      The issue can is caused by...
-      The issue can result in...
-      The issue can be mitigated by...
-    tags: [underflow, arithmetic]
-    more-info: 
-      - `https://any_place_with_more_info.com`
-      - `https://consensys.github.io/smart-contract-best-practices/{something we wrote about it}`
+    name: 'Reentrancy'
+    classification: 'Race Condition'
+    description: >
+      Occurs when a contract makes a call to an external contract, which calls back into
+      the calling contract, making an undesired state change. Any external call to another
+      contract can result in change of state of the contract from which it was called.
+    tags: [race condition, reentrancy, control flow, vulnerability, attack]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#reentrancy'
+      - 'https://en.wikipedia.org/wiki/Mutual_exclusion'
+      - 'https://medium.com/@gus_tavo_guim/reentrancy-attack-on-smart-contracts-how-to-identify-the-exploitable-and-an-example-of-an-attack-4470a2d8dfe4'
+      - 'https://medium.com/@JusDev1988/reentrancy-attack-on-a-smart-contract-677eae1300f2'
   - id: 2
-    name: ''
-    description: ''
-    more-info: 
-      - `https://..`
-      - `https://..`
-
-
-
+    name: 'Cross-function Race Conditions'
+    classification: 'Race Condition'
+    description: >
+      A race condition similar to a 'Reentrancy' attack using two different functions
+      that share the same state. Race conditions can occur across multiple functions
+      and even multiple contracts.
+    tags: [race condition, cross-function race condition, control flow, vulnerability, attack]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#cross-function-race-conditions'
+      - 'https://en.wikipedia.org/wiki/Mutual_exclusion'
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#reentrancy'
+      - 'https://github.com/ethereum/wiki/wiki/Safety#cross-function-race-conditions'
+  - id: 3
+    name: 'Timestamp Dependence'
+    classification: 'EVM'
+    description: >
+      The timestamp of a block can be manipulated by a miner, and all direct and
+      indirect uses of the timestamp should be considered.
+    tags: [vulnerability, attack, timestamp dependence]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#timestamp-dependence'
+      - 'https://ethereum.stackexchange.com/questions/15047/solidity-timestamp-dependency-is-it-possible-to-do-safely'
+  - id: 4
+    name: 'Integer Overflow and Underflow'
+    classification: 'EVM'
+    description: >
+      An overflow/underflow happens when an arithmetic operation attempts to create
+      a numeric value that is outside of the range that can be represented with a
+      given number of bits. It reaches the maximum or minimum size of the type.
+    tags: [vulnerability, attack, common logical error, overflow, underflow]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#integer-overflow-and-underflow'
+      - 'https://github.com/ethereum/solidity/issues/796#issuecomment-253578925'
+      - 'https://github.com/Arachnid/uscc/tree/master/submissions-2017/doughoyte'
+      - 'https://gist.github.com/aquabu/30378c5375f388a28572dd18d58f787f'
+  - id: 5
+    name: 'DoS with (Unexpected) revert'
+    classification: 'DoS'
+    description: >
+      An attacker can intentially create failing logic/transactions that cause a revert.
+      This can cause things like preventing others from executing certain functions
+      successfully or reverting a payment system.
+    tags: [vulnerability, attack, revert, dos]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#dos-with-unexpected-revert'
+      - 'https://consensys.github.io/smart-contract-best-practices/recommendations/#favor-pull-over-push-for-external-calls'
+  - id: 6
+    name: 'DoS with Block Gas Limit'
+    classification: 'DoS'
+    description: >
+      Similar to a "DoS with (Unexpected) revert" where an attacker intentially
+      causes a revert after manipulating the amount of gas needed.
+    tags: [vulnerability, attack, dos, gas, gas limit]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#dos-with-block-gas-limit'
+      - 'https://consensys.github.io/smart-contract-best-practices/recommendations/#favor-pull-over-push-for-external-calls'
+  - id: 7
+    name: 'Forcibly Sending Ether to a Contract'
+    classification: 'EVM'
+    description: >
+      Forcibly sending Ether to a contract without triggering its fallback function.
+      Generally, assume that it is not possible to restrict sources of funding
+      to a contract.
+    tags: [vulnerability, attack, ether]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#forcibly-sending-ether-to-a-contract'
+      - 'https://github.com/Arachnid/uscc/tree/master/submissions-2017/ricmoo'
+  - id: 8
+    name: 'Call Depth Attack (deprecated)'
+    classification: 'DEPRECATED'
+    description: >
+      As of the EIP 150 hardfork, call depth attacks are no longer relevant*
+      (all gas would be consumed well before reaching the 1024 call depth limit).
+    tags: [vulnerability, attack, call depth]
+    more-info:
+      - 'https://consensys.github.io/smart-contract-best-practices/known_attacks/#call-depth-attack-deprecated'
+      - 'https://github.com/ethereum/EIPs/issues/150'
